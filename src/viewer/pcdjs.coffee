@@ -49,9 +49,7 @@ render_scene = ->
 
 init = ->
   init_three_stuff()
-  create_cube 0, 0, 0
-  create_cube 50, 0, 0
-  create_cube -50, 0, 0
-  create_cube 0, 50, 0
-  create_cube 0, -50, 0
+  for x in [0..640]
+    for y in [0..480]
+      create_cube x, y, 0
   render_scene()
