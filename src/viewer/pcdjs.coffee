@@ -2,6 +2,8 @@ scene = null
 renderer = null
 camera = null
 controls = null
+pixel_texture = null
+pixel_material = null
 
 create_cube = (x, y, z) -> 
   cube_material = new THREE.MeshLambertMaterial { color: 0xCC0000 }
@@ -15,7 +17,20 @@ create_cube = (x, y, z) ->
 
   scene.add cube
 
+create_pixel_sprite = (x, y, z) ->
+  sprite = new THREE.Sprite pixel_material
+  sprite.position.set x, y, z
+  sprite.scale.set 2, 2, 1.0
+  scene.add sprite
+
 init_three_stuff = ->
+  pixel_texture = THREE.ImageUtils.loadTexture "pixel.png"
+  pixel_material = new THREE.SpriteMaterial {
+    map: pixel_texture,
+    useScreenCoordinates: false,
+    alignment: THREE.SpriteAlignment.topLeft
+  }
+
   WIDTH = 640
   HEIGHT = 480
   VIEW_ANGLE = 45
@@ -49,7 +64,7 @@ render_scene = ->
 
 init = ->
   init_three_stuff()
-  for x in [0..640]
-    for y in [0..480]
-      create_cube x, y, 0
+  for x in [0..100]
+    for y in [0..100]
+      create_pixel_sprite x * 10, y * 10, 0
   render_scene()
