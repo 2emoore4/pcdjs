@@ -3,17 +3,17 @@ renderer = null
 camera = null
 controls = null
 
-show_sphere = -> 
-  radius = 50
-  segments = 2
-  rings = 2
+create_cube = (x, y, z) -> 
+  cube_material = new THREE.MeshLambertMaterial { color: 0xCC0000 }
 
-  sphere_material = new THREE.MeshLambertMaterial { color: 0xCC0000 }
+  cube_geometry = new THREE.CubeGeometry 1, 1, 1
+  cube = new THREE.Mesh cube_geometry, cube_material
 
-  sphere_geometry = new THREE.SphereGeometry radius, segments, rings
-  sphere = new THREE.Mesh sphere_geometry, sphere_material
+  cube.position.x = x
+  cube.position.y = y
+  cube.position.z = z
 
-  scene.add sphere
+  scene.add cube
 
 init_three_stuff = ->
   WIDTH = 640
@@ -49,5 +49,9 @@ render_scene = ->
 
 init = ->
   init_three_stuff()
-  show_sphere()
+  create_cube 0, 0, 0
+  create_cube 50, 0, 0
+  create_cube -50, 0, 0
+  create_cube 0, 50, 0
+  create_cube 0, -50, 0
   render_scene()
