@@ -8,7 +8,7 @@ get_pcd_file = (filename) ->
   return request.responseText
 
 process_file = (filename) ->
-  pcd_string = get_pcd_file filename
+  pcd_string = get_pcd_file filename 
   lines = pcd_string.split "\n"
   for line in [11..(lines.length - 1)]
     process_point lines[line]
@@ -23,6 +23,7 @@ init_two_stuff = ->
   params = { width: 640, height: 480 }
   two = new Two params
   two.appendTo document.getElementById "render_container"
+  two.update()
 
 create_circle = (x, y, r) ->
   circle = two.makeCircle x, y, r
@@ -39,7 +40,5 @@ translate = (value, left_min, left_max, right_min, right_max) ->
 
 init = ->
   init_two_stuff()
-
   process_file "test.pcd"
-
   two.update()
