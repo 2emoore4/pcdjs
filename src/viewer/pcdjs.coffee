@@ -1,23 +1,22 @@
 two = null
-pcd_string = ""
 
-get_pcd_file = (filename) ->
+get_pcd_array = (filename) ->
+  console.log "getting pcd array"
   request = new XMLHttpRequest()
   request.open "GET", filename, false
   request.send null
-  return request.responseText
+  return JSON.parse request.responseText
+  console.log "got pcd array: " + request.json
 
 process_file = (filename) ->
-  pcd_string = get_pcd_file filename 
-  lines = pcd_string.split "\n"
-  for line in [11..(lines.length - 1)]
-    process_point lines[line]
-    two.update()
+  pcd_array = get_pcd_array filename
+  console.log "processing points in pcd array" 
+  for point in [0..(pcd_array.length - 1)]
+    process_point pcd_array[point]
+  two.update()
 
-process_point = (line) ->
-  values = line.split " "
-  radius = translate values[2], -20, 50, 0.3, 3
-  create_circle values[0], 480 - values[1], radius
+process_point = (point) ->
+  create_circle point[0], point[1], point[2]
 
 init_two_stuff = ->
   params = { width: 640, height: 480 }
@@ -40,5 +39,5 @@ translate = (value, left_min, left_max, right_min, right_max) ->
 
 init = ->
   init_two_stuff()
-  process_file "test.pcd"
+  process_file "latest"
   two.update()
