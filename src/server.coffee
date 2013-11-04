@@ -47,5 +47,8 @@ app.get '/latest', (req, res) ->
   console.log 'getting a request for latest pcd file'
   process_file 'lib/viewer/test.pcd', res
 
+  pcd_file_list = fs.readdirSync "/srv/pcd"
+  console.log pcd_file_list
+
 app.listen 8888
 console.log 'listening...'
