@@ -12,12 +12,12 @@ process_file = (filename) ->
   lines = pcd_string.split "\n"
   for line in [11..(lines.length - 1)]
     process_point lines[line]
+    two.update()
 
 process_point = (line) ->
   values = line.split " "
   radius = translate values[2], -20, 50, 0.3, 3
   create_circle values[0], 480 - values[1], radius
-  two.update()
 
 init_two_stuff = ->
   params = { width: 640, height: 480 }
