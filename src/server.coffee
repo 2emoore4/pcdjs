@@ -46,6 +46,7 @@ app.get '/ping', (req, res) ->
 app.get '/latest', (req, res) ->
   console.log 'getting a request for latest pcd file'
   pcd_file_list = fs.readdirSync "/srv/pcd"
+  pcd_file_list = pcd_file_list.sort().reverse()
   process_file "/srv/pcd/" + pcd_file_list[0], res
 
 app.listen 8888
